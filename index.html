@@ -31,50 +31,5 @@
     </form>
 </div>
 
-<script>
-document.getElementById('encuestaForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita que la página se recargue
-
-    // 1. Recolectar las respuestas del usuario
-    const nombre = document.getElementById('nombre').value;
-    const edad = document.getElementById('edad').value;
-
-    // 2. Obtener datos básicos del entorno del navegador (User Agent)
-    // Nota: La precisión depende del navegador del visitante.
-    const informacionNavegador = navigator.userAgent;
-
-    // 3. Procesar o estructurar la información obtenida
-    const datosConsolidados = {
-        usuario: {
-            nombre: nombre,
-            edad: edad
-        },
-        tecnico: {
-            plataforma: navigator.platform,
-            agenteUsuario: informacionNavegador,
-            idioma: navigator.language
-        }
-    };
-
-   // Aquí se envían los datos reales al servidor backend
-fetch('http://localhost:3000/api/guardar-datos', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(datosConsolidados)
-})
-.then(response => response.json())
-.then(data => {
-    console.log('Éxito:', data);
-    alert("¡Gracias por responder! Datos guardados correctamente.");
-})
-.catch((error) => {
-    console.error('Error:', error);
-    alert("Hubo un error al procesar la información.");
-
-});
-</script>
-
 </body>
 </html>
